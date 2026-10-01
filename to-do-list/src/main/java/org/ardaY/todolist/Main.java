@@ -27,58 +27,88 @@ public class Main {
     }
 
     public static void TaskDisplay() {
-        if (!tasks.isEmpty()) {
-            System.out.println("Tasks: (Name-Deadline-Done?) ");
-            for(int i = 0; i < tasks.size(); i++) {
-                System.out.print(i+1 + " " + tasks.get(i).getName() + " ");
-                if (tasks.get(i).getDeadline() != null) {
-                    System.out.print(tasks.get(i).getDeadline() + " ");
+        for (;;) {
+            if (!tasks.isEmpty()) {
+                System.out.println("Tasks: (Name-Deadline-Done?) ");
+                for(int i = 0; i < tasks.size(); i++) {
+                    System.out.print(i+1 + " " + tasks.get(i).getName() + " ");
+                    if (tasks.get(i).getDeadline() != null) {
+                        System.out.print(tasks.get(i).getDeadline() + " ");
+                    }
+                    System.out.print(tasks.get(i).getIsDone() + "\n");
                 }
-                System.out.print(tasks.get(i).getIsDone() + "\n");
-            }
-            System.out.println("Press 1 to mark as done any number to continue: ");
-            int user_pick = scanner.nextInt();
-            scanner.nextLine();
-            if (user_pick == 1) {
-                TaskMarkDone();
+                System.out.println("Press 1 to mark as done for back to main menu write anything: ");
+                try {
+                    int user_pick = scanner.nextInt();
+                    scanner.nextLine();
+                    if (user_pick == 1) {
+                        TaskMarkDone();
+                    } else {
+                        break;
+                    }
+                }
+                catch (Exception n) {
+                    scanner.nextLine();
+                    break;
+                }
             }
             else {
-                return;
+                System.out.println("No tasks added!");
+                break;
             }
         }
-        else { System.out.println("No tasks added!"); }
     }
 
     public static void TaskMarkDone() {
-        System.out.println("Choose task to mark as done");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.print(i + 1 + " " + tasks.get(i).getName() + " \n");
+        for (;;) {
+            System.out.println("Choose task to mark");
+            System.out.println("Write 0 to back previous menu");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.print(i + 1 + " " + tasks.get(i).getName() + " \n");
+            }
+            try {
+                int user_pick = scanner.nextInt();
+                if (user_pick == 0) {
+                    break;
+                }
+                user_pick = user_pick - 1;
+                tasks.get(user_pick).setIsDone(!tasks.get(user_pick).getIsDone());
+                System.out.println(tasks.get(user_pick).getName() +" marked as " + tasks.get(user_pick).getIsDone());
+            } catch (Exception a) {
+                System.out.println("Not a proper input");
+            }
         }
-        try {
-            int user_pick = scanner.nextInt();
-            user_pick = user_pick - 1;
-            tasks.get(user_pick).setIsDone(!tasks.get(user_pick).getIsDone());
-            System.out.println(tasks.get(user_pick).getName() +" marked as tasks.get(user_pick).getIsDone()");
-        } catch (Exception a) {
-            System.out.println("Pick a available number");
-        }
+
     }
 
     public static void TaskRemove() {
-        System.out.println("Choose to remove task: (write id number of the task)");
-        for(int i = 0; i < tasks.size(); i++) {
-            System.out.print(i+1 + " " + tasks.get(i).getName() + " \n");
-        }
-        try {
-            int user_pick = scanner.nextInt();
-            user_pick = user_pick - 1;
-            System.out.print("Task: " + tasks.get(user_pick).getName() + " removed \n");
-            scanner.nextLine();
-            tasks.remove(user_pick);
-        }
-        catch (Exception c)
-        {
-            System.out.println("Pick a available number");
+        for (;;) {
+            if (!tasks.isEmpty()) {
+                System.out.println("Choose to remove task: (write id number of the task)");
+                for(int i = 0; i < tasks.size(); i++) {
+                    System.out.print(i+1 + " " + tasks.get(i).getName() + " \n");
+                }
+                System.out.println("Write 0 to back previous menu");
+                try {
+                    int user_pick = scanner.nextInt();
+                    scanner.nextLine();
+                    if (user_pick == 0) {
+                        break;
+                    }
+                    user_pick = user_pick - 1;
+                    System.out.print("Task: " + tasks.get(user_pick).getName() + " removed \n");
+                    tasks.remove(user_pick);
+                }
+                catch (Exception c)
+                {
+                    System.out.println("Not a proper input");
+                    scanner.nextLine();
+                }
+            }
+            else {
+                System.out.println("No tasks added!");
+                break;
+            }
         }
     }
 
@@ -113,7 +143,7 @@ public class Main {
                 }
                 break;
             } catch (Exception e) {
-                System.out.println("Write NUMBER from 1 to 4");
+                System.out.println("Use numbers please");
                 scanner.nextLine();
             }
         }
