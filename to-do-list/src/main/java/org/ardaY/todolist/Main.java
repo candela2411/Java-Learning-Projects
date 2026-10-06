@@ -26,17 +26,21 @@ public class Main {
         tasks.add(newtask);
     }
 
+    public static void ShowTasks() {
+        System.out.println("Tasks: (Name-Deadline-Done?) ");
+        for(int i = 0; i < tasks.size(); i++) {
+            System.out.print(i+1 + " " + tasks.get(i).getName() + " ");
+            if (tasks.get(i).getDeadline() != null) {
+                System.out.print(tasks.get(i).getDeadline() + " ");
+            }
+            System.out.print(tasks.get(i).getIsDone() + "\n");
+        }
+    }
+
     public static void TaskDisplay() {
         for (;;) {
             if (!tasks.isEmpty()) {
-                System.out.println("Tasks: (Name-Deadline-Done?) ");
-                for(int i = 0; i < tasks.size(); i++) {
-                    System.out.print(i+1 + " " + tasks.get(i).getName() + " ");
-                    if (tasks.get(i).getDeadline() != null) {
-                        System.out.print(tasks.get(i).getDeadline() + " ");
-                    }
-                    System.out.print(tasks.get(i).getIsDone() + "\n");
-                }
+                ShowTasks();
                 System.out.println("Press 1 to mark as done for back to main menu write anything: ");
                 try {
                     int user_pick = scanner.nextInt();
@@ -72,7 +76,7 @@ public class Main {
                     break;
                 }
                 user_pick = user_pick - 1;
-                tasks.get(user_pick).setIsDone(!tasks.get(user_pick).getIsDone());
+                tasks.get(user_pick).setDone(!tasks.get(user_pick).getIsDone());
                 System.out.println(tasks.get(user_pick).getName() +" marked as " + tasks.get(user_pick).getIsDone());
             } catch (Exception a) {
                 System.out.println("Not a proper input");
@@ -81,13 +85,15 @@ public class Main {
 
     }
 
+    public static void TaskMarkHighlighted() {
+
+    }
+
     public static void TaskRemove() {
         for (;;) {
             if (!tasks.isEmpty()) {
                 System.out.println("Choose to remove task: (write id number of the task)");
-                for(int i = 0; i < tasks.size(); i++) {
-                    System.out.print(i+1 + " " + tasks.get(i).getName() + " \n");
-                }
+                ShowTasks();
                 System.out.println("Write 0 to back previous menu");
                 try {
                     int user_pick = scanner.nextInt();

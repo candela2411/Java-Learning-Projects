@@ -6,6 +6,7 @@ public class Task {
     private String name;
     private Boolean isDone;
     private String deadline;
+    private Boolean isHighlighted;
     Task (String name, Boolean isDone, String deadline) {
         this.name = name;
         this.isDone = isDone;
@@ -37,6 +38,8 @@ public class Task {
         return isDone;
     }
 
+    public Boolean getIsHighlighted() { return isHighlighted; }
+
     public void setName(String newName) {
         this.name = newName;
     }
@@ -45,7 +48,11 @@ public class Task {
         this.deadline = newDeadline;
     }
 
-    public void setIsDone(Boolean newIsDone) {
+    public void setDone(Boolean newIsDone) {
         this.isDone = newIsDone;
+    }
+
+    public void setHighlighted(Boolean highlighted) {
+        isHighlighted = highlighted;
     }
 }
